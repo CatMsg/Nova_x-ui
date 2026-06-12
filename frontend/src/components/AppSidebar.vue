@@ -187,28 +187,76 @@ function cycleTheme() {
 </template>
 
 <style scoped>
+.ant-sidebar {
+  --sidebar-surface: rgba(255, 255, 255, 0.9);
+  --sidebar-surface-soft: rgba(248, 250, 252, 0.92);
+  --sidebar-border: rgba(15, 23, 42, 0.08);
+  --sidebar-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+  --sidebar-text: rgba(15, 23, 42, 0.88);
+  --sidebar-text-muted: rgba(15, 23, 42, 0.56);
+  --sidebar-accent: #1677ff;
+  --sidebar-accent-soft: rgba(22, 119, 255, 0.1);
+}
+
+body.dark .ant-sidebar {
+  --sidebar-surface: rgba(20, 24, 33, 0.94);
+  --sidebar-surface-soft: rgba(32, 37, 48, 0.96);
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-shadow: 0 22px 54px rgba(0, 0, 0, 0.42);
+  --sidebar-text: rgba(255, 255, 255, 0.92);
+  --sidebar-text-muted: rgba(255, 255, 255, 0.62);
+  --sidebar-accent: #4096ff;
+  --sidebar-accent-soft: rgba(64, 150, 255, 0.18);
+}
+
+html[data-theme='ultra-dark'] .ant-sidebar {
+  --sidebar-surface: rgba(8, 8, 10, 0.98);
+  --sidebar-surface-soft: rgba(18, 18, 20, 0.98);
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-shadow: 0 22px 54px rgba(0, 0, 0, 0.58);
+  --sidebar-text: rgba(255, 255, 255, 0.96);
+  --sidebar-text-muted: rgba(255, 255, 255, 0.68);
+  --sidebar-accent: #66aaff;
+  --sidebar-accent-soft: rgba(102, 170, 255, 0.16);
+}
+
 .ant-sidebar>.ant-layout-sider {
   position: sticky;
   top: 0;
   height: 100vh;
   align-self: flex-start;
+  margin: 16px 0 16px 16px;
+  background:
+    radial-gradient(circle at top, rgba(22, 119, 255, 0.18), transparent 42%),
+    radial-gradient(circle at bottom, rgba(90, 224, 214, 0.1), transparent 36%),
+    linear-gradient(180deg, var(--sidebar-surface) 0%, var(--sidebar-surface-soft) 100%);
+  border: 1px solid var(--sidebar-border);
+  border-radius: 30px;
+  box-shadow: var(--sidebar-shadow);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  overflow: hidden;
 }
 
 .sider-brand,
 .drawer-brand {
   font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 0.5px;
-  color: rgba(0, 0, 0, 0.88);
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  color: var(--sidebar-text);
+  text-transform: uppercase;
 }
 
 .sider-brand {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 14px 14px;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  gap: 10px;
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid var(--sidebar-border);
+  background:
+    linear-gradient(135deg, rgba(22, 119, 255, 0.12), rgba(255, 255, 255, 0.02) 55%),
+    rgba(255, 255, 255, 0.03);
   user-select: none;
 }
 
@@ -216,9 +264,9 @@ function cycleTheme() {
  * hide the theme cycle button (which is `v-if`-ed out in template). */
 .sider-brand-collapsed {
   justify-content: center;
-  font-size: 16px;
-  padding: 14px 4px;
-  letter-spacing: 0;
+  font-size: 15px;
+  padding: 18px 4px 16px;
+  letter-spacing: 0.04em;
 }
 
 .brand-text {
@@ -230,32 +278,33 @@ function cycleTheme() {
 }
 
 .theme-cycle {
-  background: transparent;
-  border: none;
-  width: 30px;
-  height: 30px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--sidebar-text);
   padding: 0;
   flex-shrink: 0;
-  transition: background-color 0.2s, transform 0.15s, color 0.2s;
+  transition: background-color 0.2s, transform 0.15s, color 0.2s, box-shadow 0.2s;
 }
 
 .theme-cycle:hover,
 .theme-cycle:focus-visible {
-  background-color: rgba(64, 150, 255, 0.1);
-  color: #4096ff;
-  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.28);
+  color: var(--sidebar-accent);
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 14px 26px rgba(22, 119, 255, 0.18);
   outline: none;
 }
 
 .theme-cycle svg {
-  width: 16px;
-  height: 16px;
+  width: 17px;
+  height: 17px;
 }
 
 .drawer-header-actions {
@@ -266,55 +315,66 @@ function cycleTheme() {
 
 .drawer-handle {
   position: fixed;
-  top: 12px;
-  left: 12px;
+  top: 14px;
+  left: 14px;
   z-index: 1100;
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
-  border: none;
-  width: 40px;
-  height: 40px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.16));
+  color: var(--sidebar-text);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   cursor: pointer;
   display: none;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 16px 32px rgba(46, 65, 105, 0.18);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
 }
 
 .drawer-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--sidebar-border);
+  background:
+    linear-gradient(135deg, rgba(22, 119, 255, 0.12), rgba(255, 255, 255, 0.02) 55%),
+    rgba(255, 255, 255, 0.03);
 }
 
 .drawer-close {
-  background: transparent;
-  border: none;
-  width: 32px;
-  height: 32px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   font-size: 16px;
-  color: rgba(0, 0, 0, 0.65);
+  color: var(--sidebar-text);
+  transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
 }
 
 .drawer-close:hover,
 .drawer-close:focus-visible {
-  background: rgba(128, 128, 128, 0.18);
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 14px 26px rgba(22, 119, 255, 0.16);
+  transform: translateY(-1px);
 }
 
 .drawer-menu :deep(.ant-menu-item) {
-  height: 48px;
-  line-height: 48px;
-  margin: 0;
-  border-radius: 0;
+  height: 46px;
+  line-height: 46px;
+  margin: 6px 12px;
+  border-radius: 16px;
+  padding-inline: 16px !important;
+  transition: transform 0.18s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .drawer-menu :deep(.ant-menu-item .anticon) {
@@ -323,7 +383,8 @@ function cycleTheme() {
 
 .drawer-utility {
   margin-top: auto;
-  border-top: 1px solid rgba(128, 128, 128, 0.15);
+  border-top: 1px solid var(--sidebar-border);
+  padding-top: 8px;
 }
 
 .ant-sidebar>.ant-layout-sider :deep(.ant-layout-sider-children) {
@@ -341,11 +402,13 @@ function cycleTheme() {
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
+  padding: 10px 0 6px;
 }
 
 .sider-utility {
   flex: 0 0 auto;
-  border-top: 1px solid rgba(128, 128, 128, 0.15);
+  border-top: 1px solid var(--sidebar-border);
+  padding-top: 10px;
 }
 
 @media (max-width: 768px) {
@@ -359,6 +422,7 @@ function cycleTheme() {
   }
 
   .ant-sidebar>.ant-layout-sider {
+    margin: 0;
     flex: 0 0 0 !important;
     max-width: 0 !important;
     min-width: 0 !important;
@@ -368,47 +432,14 @@ function cycleTheme() {
 </style>
 
 <style>
-body.dark .drawer-brand,
-body.dark .sider-brand {
-  color: rgba(255, 255, 255, 0.92);
-}
-
-html[data-theme='ultra-dark'] .drawer-brand,
-html[data-theme='ultra-dark'] .sider-brand {
-  color: #ffffff;
-}
-
-body.dark .drawer-close {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-html[data-theme='ultra-dark'] .drawer-close {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-body.dark .theme-cycle {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-html[data-theme='ultra-dark'] .theme-cycle {
-  color: rgba(255, 255, 255, 0.92);
-}
-
-body.dark .ant-drawer .ant-drawer-content,
-body.dark .ant-drawer .ant-drawer-body {
-  background: #252526 !important;
-}
-
-html[data-theme='ultra-dark'] .ant-drawer .ant-drawer-content,
-html[data-theme='ultra-dark'] .ant-drawer .ant-drawer-body {
-  background: #0a0a0a !important;
-}
-
 .sider-nav .ant-menu-item-selected,
 .sider-utility .ant-menu-item-selected,
 .drawer-menu .ant-menu-item-selected {
-  background-color: rgba(64, 150, 255, 0.2) !important;
-  color: #4096ff !important;
+  background: linear-gradient(135deg, rgba(22, 119, 255, 0.26), rgba(22, 119, 255, 0.14)) !important;
+  color: var(--sidebar-accent) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(22, 119, 255, 0.14),
+    0 10px 22px rgba(22, 119, 255, 0.12);
 }
 
 .sider-nav .ant-menu-item-active:not(.ant-menu-item-selected),
@@ -417,7 +448,22 @@ html[data-theme='ultra-dark'] .ant-drawer .ant-drawer-body {
 .sider-nav .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover,
 .sider-utility .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover,
 .drawer-menu .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover {
-  background-color: rgba(64, 150, 255, 0.1) !important;
-  color: #4096ff !important;
+  background-color: rgba(255, 255, 255, 0.22) !important;
+  color: var(--sidebar-accent) !important;
+  transform: translateX(2px);
+}
+
+body.dark .ant-drawer .ant-drawer-content,
+body.dark .ant-drawer .ant-drawer-body {
+  background:
+    radial-gradient(circle at top, rgba(22, 119, 255, 0.12), transparent 44%),
+    linear-gradient(180deg, rgba(20, 24, 33, 0.98), rgba(15, 18, 26, 0.98)) !important;
+}
+
+html[data-theme='ultra-dark'] .ant-drawer .ant-drawer-content,
+html[data-theme='ultra-dark'] .ant-drawer .ant-drawer-body {
+  background:
+    radial-gradient(circle at top, rgba(102, 170, 255, 0.08), transparent 40%),
+    linear-gradient(180deg, rgba(8, 8, 10, 0.99), rgba(4, 4, 6, 0.99)) !important;
 }
 </style>

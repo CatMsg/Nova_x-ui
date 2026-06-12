@@ -248,21 +248,41 @@ const alertVisible = ref(true);
 
 <style scoped>
 .settings-page {
-  --bg-page: #e6e8ec;
-  --bg-card: #ffffff;
+  --bg-page: #eef2f8;
+  --bg-card: rgba(255, 255, 255, 0.82);
+  --card-border: rgba(15, 23, 42, 0.08);
+  --card-shadow: 0 20px 52px rgba(15, 23, 42, 0.08);
+  --card-hover-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
 
   min-height: 100vh;
-  background: var(--bg-page);
+  background:
+    radial-gradient(circle at top right, rgba(22, 119, 255, 0.16), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.1), transparent 26%),
+    linear-gradient(180deg, #f8fbff 0%, var(--bg-page) 56%, #e8edf6 100%);
 }
 
 .settings-page.is-dark {
-  --bg-page: #1e1e1e;
-  --bg-card: #252526;
+  --bg-page: #0f1218;
+  --bg-card: rgba(22, 26, 35, 0.82);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 22px 56px rgba(0, 0, 0, 0.42);
+  --card-hover-shadow: 0 26px 64px rgba(0, 0, 0, 0.52);
+  background:
+    radial-gradient(circle at top right, rgba(64, 150, 255, 0.18), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.1), transparent 24%),
+    linear-gradient(180deg, #161b23 0%, var(--bg-page) 48%, #0c0f14 100%);
 }
 
 .settings-page.is-dark.is-ultra {
   --bg-page: #050505;
-  --bg-card: #0c0e12;
+  --bg-card: rgba(10, 10, 12, 0.9);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --card-shadow: 0 24px 62px rgba(0, 0, 0, 0.58);
+  --card-hover-shadow: 0 28px 70px rgba(0, 0, 0, 0.66);
+  background:
+    radial-gradient(circle at top right, rgba(102, 170, 255, 0.1), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.08), transparent 24%),
+    linear-gradient(180deg, #0a0a0a 0%, var(--bg-page) 48%, #040404 100%);
 }
 
 .settings-page :deep(.ant-layout),
@@ -275,7 +295,72 @@ const alertVisible = ref(true);
 }
 
 .content-area {
-  padding: 24px;
+  padding: 24px 24px 28px;
+}
+
+.settings-page :deep(.ant-card) {
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: 22px;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.settings-page :deep(.ant-card:hover) {
+  transform: translateY(-2px);
+  box-shadow: var(--card-hover-shadow);
+  border-color: rgba(22, 119, 255, 0.18);
+}
+
+.settings-page :deep(.ant-card-head) {
+  min-height: 58px;
+  padding-inline: 20px;
+  border-bottom-color: var(--card-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent);
+}
+
+.settings-page :deep(.ant-card-head-title) {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.settings-page :deep(.ant-card-body) {
+  padding: 20px;
+}
+
+.settings-page :deep(.ant-tabs-nav) {
+  margin-bottom: 18px;
+  padding: 8px;
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.settings-page :deep(.ant-tabs-nav-wrap) {
+  padding-inline: 2px;
+}
+
+.settings-page :deep(.ant-tabs-tab) {
+  border-radius: 12px;
+  padding: 10px 16px;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.settings-page :deep(.ant-tabs-tab-active) {
+  background: rgba(22, 119, 255, 0.1);
+}
+
+.settings-page :deep(.ant-tabs-ink-bar) {
+  height: 3px;
+  border-radius: 999px;
+  background: #1677ff;
 }
 
 .loading-spacer {

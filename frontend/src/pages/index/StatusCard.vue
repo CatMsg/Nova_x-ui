@@ -24,7 +24,7 @@ const trailColor = 'rgba(128, 128, 128, 0.25)';
 </script>
 
 <template>
-  <a-card hoverable>
+  <a-card hoverable class="glass-card hero-card">
     <a-row :gutter="[0, isMobile ? 16 : 0]">
       <!-- CPU + Memory -->
       <a-col :xs="24" :md="12">
@@ -83,6 +83,10 @@ const trailColor = 'rgba(128, 128, 128, 0.25)';
 </template>
 
 <style scoped>
+.glass-card {
+  isolation: isolate;
+}
+
 .text-center {
   text-align: center;
 }

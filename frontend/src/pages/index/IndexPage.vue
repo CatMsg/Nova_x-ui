@@ -153,7 +153,7 @@ async function openConfig() {
               </a-col>
 
               <a-col :xs="24" :lg="12">
-                <a-card :title="t('menu.link')" hoverable>
+                <a-card :title="t('menu.link')" hoverable class="glass-card action-card">
                   <template #actions>
                     <a-space class="action" @click="logsOpen = true">
                       <BarsOutlined />
@@ -172,7 +172,7 @@ async function openConfig() {
               </a-col>
 
               <a-col :xs="24" :lg="12">
-                <a-card title="Nova_x-ui" hoverable>
+                <a-card title="Nova_x-ui" hoverable class="glass-card brand-card">
                   <template #actions>
                     <a-space class="action" @click="openTelegram">
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" class="tg-icon"
@@ -196,7 +196,7 @@ async function openConfig() {
               </a-col>
 
               <a-col :xs="24" :lg="12">
-                <a-card :title="t('pages.index.charts')" hoverable>
+                <a-card :title="t('pages.index.charts')" hoverable class="glass-card action-card">
                   <template #actions>
                     <a-space class="action" @click="openSystemHistory">
                       <AreaChartOutlined />
@@ -211,7 +211,7 @@ async function openConfig() {
               </a-col>
 
               <a-col :xs="24" :lg="12">
-                <a-card :title="t('pages.index.operationHours')" hoverable>
+                <a-card :title="t('pages.index.operationHours')" hoverable class="glass-card metric-card">
                   <a-row :gutter="isMobile ? [8, 8] : 0">
                     <a-col :span="12">
                       <CustomStatistic title="Xray" :value="TimeFormatter.formatSecond(status.appStats.uptime)">
@@ -232,7 +232,7 @@ async function openConfig() {
               </a-col>
 
               <a-col :xs="24" :lg="12">
-                <a-card :title="t('usage')" hoverable>
+                <a-card :title="t('usage')" hoverable class="glass-card metric-card">
                   <a-row :gutter="isMobile ? [8, 8] : 0">
                     <a-col :span="12">
                       <CustomStatistic :title="t('pages.index.memory')"
@@ -254,7 +254,7 @@ async function openConfig() {
               </a-col>
 
               <a-col :xs="24" :lg="12">
-                <a-card :title="t('pages.index.overallSpeed')" hoverable>
+                <a-card :title="t('pages.index.overallSpeed')" hoverable class="glass-card metric-card">
                   <a-row :gutter="isMobile ? [8, 8] : 0">
                     <a-col :span="12">
                       <CustomStatistic :title="t('pages.index.upload')"
@@ -279,7 +279,7 @@ async function openConfig() {
               </a-col>
 
               <a-col :xs="24" :lg="12">
-                <a-card :title="t('pages.index.totalData')" hoverable>
+                <a-card :title="t('pages.index.totalData')" hoverable class="glass-card metric-card">
                   <a-row :gutter="isMobile ? [8, 8] : 0">
                     <a-col :span="12">
                       <CustomStatistic :title="t('pages.index.sent')"
@@ -302,7 +302,7 @@ async function openConfig() {
               </a-col>
 
               <a-col :xs="24" :lg="12">
-                <a-card :title="t('pages.index.ipAddresses')" hoverable>
+                <a-card :title="t('pages.index.ipAddresses')" hoverable class="glass-card metric-card">
                   <template #extra>
                     <a-tooltip :title="t('pages.index.toggleIpVisibility')" :placement="isMobile ? 'topRight' : 'top'">
                       <component :is="showIp ? EyeOutlined : EyeInvisibleOutlined" class="ip-toggle-icon"
@@ -329,7 +329,7 @@ async function openConfig() {
               </a-col>
 
               <a-col :xs="24" :lg="12">
-                <a-card :title="t('pages.index.connectionCount')" hoverable>
+                <a-card :title="t('pages.index.connectionCount')" hoverable class="glass-card metric-card">
                   <a-row :gutter="isMobile ? [8, 8] : 0">
                     <a-col :span="12">
                       <CustomStatistic title="TCP" :value="status.tcpCount">
@@ -368,21 +368,135 @@ async function openConfig() {
 
 <style scoped>
 .index-page {
-  --bg-page: #e6e8ec;
-  --bg-card: #ffffff;
-
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
-  background: var(--bg-page);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 15%, rgba(117, 151, 255, 0.34), transparent 0 22%),
+    radial-gradient(circle at 82% 14%, rgba(92, 224, 214, 0.2), transparent 0 18%),
+    radial-gradient(circle at 86% 84%, rgba(255, 145, 190, 0.18), transparent 0 22%),
+    radial-gradient(circle at 14% 86%, rgba(255, 214, 102, 0.12), transparent 0 20%),
+    linear-gradient(145deg, #f7fbff 0%, #eef4ff 44%, #f7f8fe 100%);
+}
+
+.index-page::before,
+.index-page::after {
+  content: '';
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 999px;
+  filter: blur(72px);
+  opacity: 0.9;
+}
+
+.index-page::before {
+  width: 42vw;
+  height: 42vw;
+  top: -10vw;
+  right: -8vw;
+  background: radial-gradient(circle, rgba(115, 135, 255, 0.36) 0%, rgba(115, 135, 255, 0.12) 36%, transparent 72%);
+}
+
+.index-page::after {
+  width: 52vw;
+  height: 52vw;
+  left: -12vw;
+  bottom: -18vw;
+  background: radial-gradient(circle, rgba(70, 225, 220, 0.24) 0%, rgba(70, 225, 220, 0.08) 34%, transparent 68%);
 }
 
 .index-page.is-dark {
-  --bg-page: #1e1e1e;
-  --bg-card: #252526;
+  background:
+    radial-gradient(circle at 18% 15%, rgba(89, 140, 255, 0.25), transparent 0 22%),
+    radial-gradient(circle at 82% 14%, rgba(58, 208, 196, 0.16), transparent 0 18%),
+    radial-gradient(circle at 86% 84%, rgba(255, 120, 178, 0.14), transparent 0 22%),
+    radial-gradient(circle at 14% 86%, rgba(255, 210, 102, 0.1), transparent 0 20%),
+    linear-gradient(145deg, #0d1118 0%, #121824 44%, #0b0d12 100%);
+}
+
+.index-page.is-dark::before {
+  background: radial-gradient(circle, rgba(87, 148, 255, 0.22) 0%, rgba(87, 148, 255, 0.08) 36%, transparent 72%);
+}
+
+.index-page.is-dark::after {
+  background: radial-gradient(circle, rgba(78, 228, 219, 0.16) 0%, rgba(78, 228, 219, 0.06) 34%, transparent 68%);
 }
 
 .index-page.is-dark.is-ultra {
-  --bg-page: #050505;
-  --bg-card: #0c0e12;
+  background:
+    radial-gradient(circle at 18% 15%, rgba(89, 140, 255, 0.16), transparent 0 22%),
+    radial-gradient(circle at 82% 14%, rgba(58, 208, 196, 0.1), transparent 0 18%),
+    radial-gradient(circle at 86% 84%, rgba(255, 120, 178, 0.08), transparent 0 22%),
+    radial-gradient(circle at 14% 86%, rgba(255, 210, 102, 0.06), transparent 0 20%),
+    linear-gradient(145deg, #050608 0%, #090c12 44%, #030304 100%);
+}
+
+.index-page.is-dark.is-ultra::before {
+  background: radial-gradient(circle, rgba(79, 146, 255, 0.16) 0%, rgba(79, 146, 255, 0.06) 36%, transparent 72%);
+}
+
+.index-page.is-dark.is-ultra::after {
+  background: radial-gradient(circle, rgba(68, 214, 202, 0.1) 0%, rgba(68, 214, 202, 0.04) 34%, transparent 68%);
+}
+
+.index-page.is-dark :deep(.glass-card) {
+  background:
+    linear-gradient(180deg, rgba(23, 30, 48, 0.56), rgba(12, 16, 27, 0.34));
+  border-color: rgba(115, 145, 255, 0.18);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 22px 56px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.index-page.is-dark :deep(.glass-card:hover) {
+  border-color: rgba(140, 170, 255, 0.22);
+  box-shadow:
+    0 28px 64px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.index-page.is-dark :deep(.glass-card .ant-card-head) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.02);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.index-page.is-dark :deep(.glass-card .ant-card-head-title),
+.index-page.is-dark :deep(.xray-card .ant-card-extra) {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.index-page.is-dark :deep(.glass-card .ant-card-actions) {
+  background: rgba(255, 255, 255, 0.06);
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.index-page.is-dark :deep(.action),
+.index-page.is-dark :deep(.glass-card .ant-card-actions > li > span) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(140, 170, 255, 0.14);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.index-page.is-dark.is-ultra :deep(.glass-card) {
+  background: rgba(9, 11, 16, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 24px 62px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.index-page.is-dark.is-ultra :deep(.glass-card .ant-card-head) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+}
+
+.index-page.is-dark.is-ultra :deep(.glass-card .ant-card-head-title),
+.index-page.is-dark.is-ultra :deep(.xray-card .ant-card-extra) {
+  color: rgba(255, 255, 255, 0.96);
 }
 
 .index-page :deep(.ant-layout),
@@ -392,17 +506,117 @@ async function openConfig() {
 
 .content-shell {
   background: transparent;
+  position: relative;
+  z-index: 1;
 }
 
 .content-area {
-  padding: 24px;
+  padding: 18px 18px 22px 16px;
 }
 
 @media (max-width: 768px) {
   .content-area {
-    padding: 12px;
-    padding-top: 64px;
+    padding: 12px 12px 18px;
+    padding-top: 66px;
   }
+}
+
+.index-page :deep(.glass-card) {
+  position: relative;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+  border-radius: 28px;
+  box-shadow:
+    0 18px 48px rgba(46, 65, 105, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.index-page :deep(.glass-card:hover) {
+  transform: translateY(-4px);
+  box-shadow:
+    0 26px 60px rgba(46, 65, 105, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.74);
+  border-color: rgba(255, 255, 255, 0.58);
+}
+
+.index-page :deep(.glass-card .ant-card-head) {
+  min-height: 58px;
+  padding-inline: 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.26);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.12));
+}
+
+.index-page :deep(.glass-card .ant-card-head-title) {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: rgba(15, 23, 42, 0.84);
+}
+
+.index-page :deep(.glass-card .ant-card-extra) {
+  color: rgba(22, 119, 255, 0.96);
+}
+
+.index-page :deep(.glass-card .ant-card-body) {
+  padding: 22px;
+}
+
+.index-page :deep(.glass-card .ant-card-actions) {
+  margin: 0 14px 14px;
+  background: rgba(255, 255, 255, 0.34);
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  overflow: hidden;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.index-page :deep(.glass-card .ant-card-actions > li) {
+  margin: 0;
+  padding: 8px 0;
+}
+
+.index-page :deep(.glass-card .ant-card-actions > li > span) {
+  min-height: 46px;
+}
+
+.index-page :deep(.hero-card .ant-card-body) {
+  padding: 24px 20px 20px;
+}
+
+.index-page :deep(.hero-card .ant-progress-text) {
+  font-size: 15px !important;
+  font-weight: 700;
+}
+
+.index-page :deep(.brand-card .ant-card-body),
+.index-page :deep(.action-card .ant-card-body) {
+  padding-top: 18px;
+}
+
+.index-page :deep(.metric-card .ant-card-body) {
+  padding-top: 18px;
+}
+
+.index-page :deep(.xray-card .ant-card-extra),
+.index-page :deep(.xray-card .ant-card-head-title) {
+  color: rgba(15, 23, 42, 0.88);
+}
+
+.index-page :deep(.xray-card .ant-card-actions > li > span),
+.index-page :deep(.action-card .ant-card-actions > li > span) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .loading-spacer {
@@ -412,6 +626,28 @@ async function openConfig() {
 .action {
   cursor: pointer;
   justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.22));
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  box-shadow: 0 10px 22px rgba(46, 65, 105, 0.08);
+}
+
+.action :deep(.anticon) {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(22, 119, 255, 0.12);
+  color: #1677ff;
+}
+
+.index-page.is-dark :deep(.action .anticon) {
+  background: rgba(115, 145, 255, 0.16);
+  color: rgba(170, 198, 255, 0.96);
 }
 
 .action-update {
@@ -448,5 +684,14 @@ async function openConfig() {
 
 .ip-visible :deep(.ant-statistic-content-value) {
   filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .index-page::before,
+  .index-page::after,
+  .index-page :deep(.glass-card),
+  .index-page :deep(.glass-card:hover) {
+    transition: none;
+  }
 }
 </style>

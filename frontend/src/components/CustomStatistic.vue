@@ -17,8 +17,30 @@ defineProps({
 </template>
 
 <style scoped>
+:deep(.ant-statistic) {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+:deep(.ant-statistic-title) {
+  margin-bottom: 0;
+  color: rgba(100, 116, 139, 0.92);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 :deep(.ant-statistic-content) {
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+:deep(.ant-statistic-content-prefix) {
+  margin-inline-end: 8px;
+  color: #1677ff;
 }
 
 :global(body.dark .ant-statistic-content) {

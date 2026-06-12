@@ -37,7 +37,7 @@ function badgeAnimationClass(color) {
 </script>
 
 <template>
-  <a-card hoverable>
+  <a-card hoverable class="glass-card xray-card">
     <template #title>
       <a-space direction="horizontal">
         <span>{{ t('pages.index.xrayStatus') }}</span>
@@ -99,6 +99,10 @@ function badgeAnimationClass(color) {
 </template>
 
 <style scoped>
+.glass-card {
+  isolation: isolate;
+}
+
 .action {
   cursor: pointer;
   justify-content: center;
