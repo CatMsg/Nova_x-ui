@@ -1,4 +1,4 @@
-import { reactive, computed, watchEffect } from 'vue';
+import { reactive, computed, ref, watchEffect } from 'vue';
 import { theme as antdTheme } from 'ant-design-vue';
 
 // Single shared theme state. `import { theme } from '@/composables/useTheme.js'`
@@ -6,8 +6,14 @@ import { theme as antdTheme } from 'ant-design-vue';
 // theme to <body>/<html>) run once at module load so the page is in the
 // right theme before Vue mounts.
 
+const STORAGE_MODE = 'theme-mode';
 const STORAGE_DARK = 'dark-mode';
 const STORAGE_ULTRA = 'isUltraDarkThemeEnabled';
+const THEME_MODES = {
+  SYSTEM: 'system',
+  LIGHT: 'light',
+  DARK: 'dark',
+};
 
 function readBool(key, fallback) {
   const raw = localStorage.getItem(key);
@@ -15,23 +21,48 @@ function readBool(key, fallback) {
   return raw === 'true';
 }
 
-// Light is now the default visual language; dark remains a persisted option.
-const isDark = readBool(STORAGE_DARK, false);
-const isUltra = readBool(STORAGE_ULTRA, false);
+function readThemeMode() {
+  const stored = localStorage.getItem(STORAGE_MODE);
+  if (stored === THEME_MODES.SYSTEM || stored === THEME_MODES.LIGHT || stored === THEME_MODES.DARK) {
+    return stored;
+  }
+  const legacyDark = localStorage.getItem(STORAGE_DARK);
+  if (legacyDark === 'true') return THEME_MODES.DARK;
+  return THEME_MODES.SYSTEM;
+}
+
+const systemPrefersDark = ref(
+  typeof window !== 'undefined' && window.matchMedia
+    ? window.matchMedia('(prefers-color-scheme: dark)').matches
+    : false,
+);
+
+if (typeof window !== 'undefined' && window.matchMedia) {
+  const media = window.matchMedia('(prefers-color-scheme: dark)');
+  const onChange = (event) => {
+    systemPrefersDark.value = event.matches;
+  };
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', onChange);
+  } else if (typeof media.addListener === 'function') {
+    media.addListener(onChange);
+  }
+}
 
 export const theme = reactive({
-  isDark,
-  isUltra,
+  mode: readThemeMode(),
+  isDark: false,
+  isUltra: readBool(STORAGE_ULTRA, false),
 });
 
 export const currentTheme = computed(() => (theme.isDark ? 'dark' : 'light'));
 
 // AD-Vue 4 theme config consumed by every page's <a-config-provider>.
-// Three modes — light / dark / ultra-dark — all share AD-Vue's vanilla
-// blue primary. Dark uses a neutral grey palette modelled on VS Code's
-// Dark+ chrome (`#1e1e1e` editor, `#252526` sidebar, `#2d2d30` panel),
-// so the panel reads as a familiar modern IDE rather than the older
-// navy shade. Ultra-dark stays pure-black on darkAlgorithm.
+// The user-facing modes are system / light / dark. Dark uses a neutral
+// grey palette modelled on VS Code's Dark+ chrome (`#1e1e1e` editor,
+// `#252526` sidebar, `#2d2d30` panel), so the panel reads as a familiar
+// modern IDE rather than the older navy shade. Ultra-dark stays pure
+// black on darkAlgorithm for the legacy hidden state.
 const DARK_TOKENS = {
   colorBgBase: '#1e1e1e',
   colorBgLayout: '#1e1e1e',
@@ -86,11 +117,26 @@ export const antdThemeConfig = computed(() => {
   };
 });
 
+export function setThemeMode(mode) {
+  if (mode !== THEME_MODES.SYSTEM && mode !== THEME_MODES.LIGHT && mode !== THEME_MODES.DARK) return;
+  theme.mode = mode;
+  if (mode !== THEME_MODES.DARK) {
+    theme.isUltra = false;
+  }
+}
+
+export function cycleThemeMode() {
+  const order = [THEME_MODES.SYSTEM, THEME_MODES.LIGHT, THEME_MODES.DARK];
+  const index = order.indexOf(theme.mode);
+  setThemeMode(order[(index + 1) % order.length]);
+}
+
 export function toggleTheme() {
-  theme.isDark = !theme.isDark;
+  setThemeMode(theme.mode === THEME_MODES.DARK ? THEME_MODES.LIGHT : THEME_MODES.DARK);
 }
 
 export function toggleUltra() {
+  if (!theme.isDark) return;
   theme.isUltra = !theme.isUltra;
 }
 
@@ -112,8 +158,18 @@ export function pauseAnimationsUntilLeave(elementId) {
 
 // Apply theme to DOM and persist whenever it changes.
 watchEffect(() => {
-  document.body.setAttribute('class', theme.isDark ? 'dark' : 'light');
-  localStorage.setItem(STORAGE_DARK, String(theme.isDark));
+  const resolvedDark = theme.mode === THEME_MODES.SYSTEM
+    ? systemPrefersDark.value
+    : theme.mode === THEME_MODES.DARK;
+
+  theme.isDark = resolvedDark;
+  if (!resolvedDark) {
+    theme.isUltra = false;
+  }
+
+  document.body.setAttribute('class', resolvedDark ? 'dark' : 'light');
+  localStorage.setItem(STORAGE_MODE, theme.mode);
+  localStorage.setItem(STORAGE_DARK, String(resolvedDark));
 
   if (theme.isUltra) {
     document.documentElement.setAttribute('data-theme', 'ultra-dark');
