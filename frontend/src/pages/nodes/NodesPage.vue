@@ -164,26 +164,64 @@ async function onToggleEnable(node, next) {
 
 <style scoped>
 .nodes-page {
-  --bg-page: #e6e8ec;
-  --bg-card: #ffffff;
-
   min-height: 100vh;
-  background: var(--bg-page);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.92), transparent 34%),
+    radial-gradient(circle at 85% 12%, rgba(189, 214, 255, 0.26), transparent 28%),
+    linear-gradient(180deg, #f8fbff 0%, #eef3f9 45%, #e7edf4 100%);
 }
 
 .nodes-page.is-dark {
-  --bg-page: #1e1e1e;
-  --bg-card: #252526;
+  background: linear-gradient(180deg, #1f2127 0%, #181a1f 100%);
 }
 
 .nodes-page.is-dark.is-ultra {
-  --bg-page: #050505;
-  --bg-card: #0c0e12;
+  background: linear-gradient(180deg, #050505 0%, #0b0c10 100%);
 }
 
 .nodes-page :deep(.ant-layout),
 .nodes-page :deep(.ant-layout-content) {
   background: transparent;
+}
+
+.nodes-page :deep(.ant-card) {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 18px 48px rgba(34, 51, 84, 0.08);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-radius: 20px;
+}
+
+.nodes-page :deep(.ant-card-hoverable:hover) {
+  border-color: rgba(123, 160, 224, 0.3);
+  box-shadow: 0 22px 64px rgba(34, 51, 84, 0.12);
+  transform: translateY(-1px);
+}
+
+.nodes-page :deep(.ant-table),
+.nodes-page :deep(.ant-table-container),
+.nodes-page :deep(.ant-table-content) {
+  background: rgba(255, 255, 255, 0.52);
+  border-radius: 18px;
+}
+
+.nodes-page :deep(.ant-table-thead > tr > th) {
+  background: rgba(255, 255, 255, 0.84);
+  border-bottom-color: rgba(122, 145, 176, 0.16);
+}
+
+.nodes-page :deep(.ant-table-tbody > tr > td) {
+  border-bottom-color: rgba(122, 145, 176, 0.12);
+}
+
+.nodes-page :deep(.ant-btn-primary) {
+  border-radius: 999px;
+  box-shadow: 0 10px 22px rgba(24, 144, 255, 0.18);
+}
+
+.nodes-page :deep(.ant-btn) {
+  border-radius: 999px;
 }
 
 .content-shell {

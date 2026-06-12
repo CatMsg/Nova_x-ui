@@ -497,4 +497,31 @@ const localOutboundTestUrl = computed({
 .hint-alert {
   text-align: center;
 }
+
+:deep(.ant-collapse) {
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+:deep(.ant-collapse-header) {
+  font-weight: 600;
+}
+
+:deep(.ant-collapse-content) {
+  background: rgba(255, 255, 255, 0.48);
+}
+
+:deep(.ant-alert) {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.64);
+}
+
+:deep(.ant-select),
+:deep(.ant-input),
+:deep(.ant-switch),
+:deep(.ant-btn) {
+  border-radius: 999px;
+}
 </style>

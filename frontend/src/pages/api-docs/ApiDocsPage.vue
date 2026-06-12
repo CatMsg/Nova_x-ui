@@ -235,24 +235,23 @@ onMounted(() => {
 
 <style scoped>
 .api-docs-page {
-  --bg-page: #e6e8ec;
-  --bg-card: #ffffff;
   min-height: 100vh;
-  background: var(--bg-page);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.92), transparent 34%),
+    radial-gradient(circle at 84% 10%, rgba(202, 226, 255, 0.28), transparent 28%),
+    linear-gradient(180deg, #f7fbff 0%, #edf3f9 45%, #e7edf4 100%);
 }
 
 .api-docs-page.is-dark {
-  --bg-page: #1e1e1e;
-  --bg-card: #252526;
+  background: linear-gradient(180deg, #1f2127 0%, #181a1f 100%);
 }
 
 .api-docs-page.is-dark.is-ultra {
-  --bg-page: #000;
-  --bg-card: #0a0a0a;
+  background: linear-gradient(180deg, #050505 0%, #0b0c10 100%);
 }
 
 .content-shell {
-  background: var(--bg-page);
+  background: transparent;
 }
 
 .content-area {
@@ -280,12 +279,12 @@ onMounted(() => {
   font-size: 26px;
   font-weight: 700;
   margin: 0 0 8px;
-  color: rgba(0, 0, 0, 0.88);
+  color: rgba(20, 30, 44, 0.94);
 }
 
 .docs-lead {
   margin: 0;
-  color: rgba(0, 0, 0, 0.65);
+  color: rgba(53, 67, 87, 0.74);
   line-height: 1.6;
   font-size: 14px;
 }
@@ -302,6 +301,21 @@ onMounted(() => {
 .token-card,
 .curl-card {
   margin-bottom: 16px;
+}
+
+:deep(.ant-card) {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 18px 48px rgba(34, 51, 84, 0.08);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-radius: 20px;
+}
+
+:deep(.ant-card-hoverable:hover) {
+  border-color: rgba(123, 160, 224, 0.3);
+  box-shadow: 0 22px 64px rgba(34, 51, 84, 0.12);
+  transform: translateY(-1px);
 }
 
 .token-card-head {
@@ -322,9 +336,9 @@ onMounted(() => {
 }
 
 .token-value {
-  background: rgba(128, 128, 128, 0.08);
-  border: 1px solid rgba(128, 128, 128, 0.15);
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(128, 145, 170, 0.14);
+  border-radius: 16px;
   padding: 10px 12px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 13px;
@@ -335,15 +349,15 @@ onMounted(() => {
 
 .token-hint {
   margin: 10px 0 0;
-  color: rgba(0, 0, 0, 0.55);
+  color: rgba(53, 67, 87, 0.68);
   font-size: 12.5px;
   line-height: 1.55;
 }
 
 .code-block {
-  background: rgba(128, 128, 128, 0.08);
-  border: 1px solid rgba(128, 128, 128, 0.15);
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(128, 145, 170, 0.14);
+  border-radius: 16px;
   padding: 10px 12px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 12.5px;
@@ -370,7 +384,7 @@ onMounted(() => {
 
 .match-count {
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(53, 67, 87, 0.64);
   white-space: nowrap;
 }
 
@@ -380,8 +394,9 @@ onMounted(() => {
   align-items: center;
   gap: 8px 14px;
   padding: 12px 16px;
-  background: rgba(128, 128, 128, 0.08);
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 18px;
   margin-bottom: 16px;
 }
 
@@ -390,7 +405,7 @@ onMounted(() => {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(53, 67, 87, 0.64);
 }
 
 .toc-link {
@@ -403,6 +418,19 @@ onMounted(() => {
 .toc-link:hover {
   color: #4096ff;
   text-decoration: underline;
+}
+
+.toolbar :deep(.ant-btn) {
+  border-radius: 999px;
+}
+
+.toolbar :deep(.ant-input-affix-wrapper) {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.toolbar :deep(.ant-input-search .ant-input-group-addon .ant-btn) {
+  border-radius: 999px;
 }
 </style>
 

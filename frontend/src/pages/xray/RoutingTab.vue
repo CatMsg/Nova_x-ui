@@ -356,6 +356,25 @@ const columns = computed(() => (props.isMobile ? mobileColumns.value : desktopCo
 </template>
 
 <style scoped>
+.routing-table {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.routing-table :deep(.ant-table) {
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.routing-table :deep(.ant-table-thead > tr > th) {
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.routing-table :deep(.ant-table-tbody > tr > td) {
+  background: rgba(255, 255, 255, 0.4);
+}
+
 .action-cell {
   display: flex;
   align-items: center;
@@ -397,8 +416,8 @@ const columns = computed(() => (props.isMobile ? mobileColumns.value : desktopCo
 .criterion-more {
   font-size: 11px;
   padding: 0 5px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.06);
+  border-radius: 999px;
+  background: rgba(24, 144, 255, 0.1);
 }
 
 :global(body.dark) .criterion-more {
@@ -424,6 +443,14 @@ const columns = computed(() => (props.isMobile ? mobileColumns.value : desktopCo
 .target-icon {
   font-size: 12px;
   opacity: 0.6;
+}
+
+.routing-table :deep(.ant-tag) {
+  border-radius: 999px;
+}
+
+.routing-table :deep(.ant-btn) {
+  border-radius: 999px;
 }
 
 .danger {

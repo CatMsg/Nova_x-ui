@@ -240,4 +240,31 @@ function formatPct(p) {
 .address-visible {
   filter: none;
 }
+
+:deep(.ant-table) {
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+:deep(.ant-table-container) {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+:deep(.ant-table-thead > tr > th) {
+  background: rgba(255, 255, 255, 0.84);
+}
+
+:deep(.ant-table-tbody > tr > td) {
+  background: rgba(255, 255, 255, 0.42);
+}
+
+:deep(.ant-table-tbody > tr:hover > td) {
+  background: rgba(244, 248, 255, 0.92);
+}
+
+:deep(.ant-switch) {
+  background: rgba(0, 0, 0, 0.18);
+}
 </style>

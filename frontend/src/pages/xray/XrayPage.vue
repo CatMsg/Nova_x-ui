@@ -338,26 +338,83 @@ function confirmRestart() {
 
 <style scoped>
 .xray-page {
-  --bg-page: #e6e8ec;
-  --bg-card: #ffffff;
-
   min-height: 100vh;
-  background: var(--bg-page);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.92), transparent 34%),
+    radial-gradient(circle at 84% 10%, rgba(202, 226, 255, 0.32), transparent 28%),
+    linear-gradient(180deg, #f7fbff 0%, #edf3f9 45%, #e7edf4 100%);
 }
 
 .xray-page.is-dark {
-  --bg-page: #1e1e1e;
-  --bg-card: #252526;
+  background: linear-gradient(180deg, #1f2127 0%, #181a1f 100%);
 }
 
 .xray-page.is-dark.is-ultra {
-  --bg-page: #050505;
-  --bg-card: #0c0e12;
+  background: linear-gradient(180deg, #050505 0%, #0b0c10 100%);
 }
 
 .xray-page :deep(.ant-layout),
 .xray-page :deep(.ant-layout-content) {
   background: transparent;
+}
+
+.xray-page :deep(.ant-card) {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 18px 48px rgba(34, 51, 84, 0.08);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-radius: 20px;
+}
+
+.xray-page :deep(.ant-card-hoverable:hover) {
+  border-color: rgba(123, 160, 224, 0.3);
+  box-shadow: 0 22px 64px rgba(34, 51, 84, 0.12);
+  transform: translateY(-1px);
+}
+
+.xray-page :deep(.ant-tabs-nav) {
+  margin: 0 0 18px;
+}
+
+.xray-page :deep(.ant-tabs-tab) {
+  border-radius: 999px;
+}
+
+.xray-page :deep(.ant-tabs-tab-btn) {
+  font-weight: 500;
+}
+
+.xray-page :deep(.ant-tabs-tab-active) {
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 8px 22px rgba(34, 51, 84, 0.08);
+}
+
+.xray-page :deep(.ant-collapse) {
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.xray-page :deep(.ant-collapse-header) {
+  border-radius: 18px;
+  font-weight: 600;
+}
+
+.xray-page :deep(.ant-alert) {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.66);
+  border-color: rgba(255, 194, 105, 0.28);
+}
+
+.xray-page :deep(.ant-btn-primary) {
+  border-radius: 999px;
+  box-shadow: 0 10px 22px rgba(24, 144, 255, 0.18);
+}
+
+.xray-page :deep(.ant-btn) {
+  border-radius: 999px;
 }
 
 .content-shell {
@@ -402,10 +459,13 @@ function confirmRestart() {
   white-space: pre-wrap;
   font-size: 12px;
   margin: 0;
+  color: rgba(24, 36, 54, 0.9);
 }
 
 .json-editor {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
 }
 </style>

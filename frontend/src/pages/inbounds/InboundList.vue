@@ -684,6 +684,13 @@ function showQrCodeMenu(dbInbound) {
     margin-bottom: 4px;
 }
 
+.protocol-tags :deep(.ant-tag),
+.client-count-tag,
+.card-stats :deep(.ant-tag),
+:deep(.ant-tag) {
+  border-radius: 999px;
+}
+
 .protocol-tags {
   display: inline-flex;
   flex-wrap: wrap;
@@ -724,29 +731,29 @@ function showQrCodeMenu(dbInbound) {
  * token, but the inner header strip and footer touch the edges, so clip
  * them here. */
 :deep(.ant-table) {
-  border-radius: 8px;
+  border-radius: 18px;
   overflow: hidden;
 }
 
 :deep(.ant-table-container) {
-  border-radius: 8px;
+  border-radius: 18px;
   overflow: hidden;
 }
 
 :deep(.ant-table-thead > tr:first-child > *:first-child) {
-  border-start-start-radius: 8px;
+  border-start-start-radius: 18px;
 }
 
 :deep(.ant-table-thead > tr:first-child > *:last-child) {
-  border-start-end-radius: 8px;
+  border-start-end-radius: 18px;
 }
 
 :deep(.ant-table-tbody > tr:last-child > *:first-child) {
-  border-end-start-radius: 8px;
+  border-end-start-radius: 18px;
 }
 
 :deep(.ant-table-tbody > tr:last-child > *:last-child) {
-  border-end-end-radius: 8px;
+  border-end-end-radius: 18px;
 }
 
 /* ===== Mobile card list ===========================================
@@ -761,10 +768,11 @@ function showQrCodeMenu(dbInbound) {
 }
 
 .inbound-card {
-  border: 1px solid rgba(128, 128, 128, 0.2);
-  border-radius: 10px;
+  border: 1px solid rgba(133, 154, 180, 0.2);
+  border-radius: 16px;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 12px 34px rgba(34, 51, 84, 0.06);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -845,6 +853,10 @@ function showQrCodeMenu(dbInbound) {
   margin-top: 4px;
   padding-top: 8px;
   border-top: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+:deep(.ant-table-tbody > tr:hover > td) {
+  background: rgba(244, 248, 255, 0.96);
 }
 
 .card-empty {
