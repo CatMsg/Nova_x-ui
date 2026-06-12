@@ -1,0 +1,118 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to publish
+        required: false
+        default: v1.0.0
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build ${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            goarch: amd64
+            xray_asset: Xray-linux-64.zip
+          - arch: arm64
+            goarch: arm64
+            xray_asset: Xray-linux-arm64-v8a.zip
+          - arch: armv7
+            goarch: arm
+            goarm: "7"
+            xray_asset: Xray-linux-arm32-v7a.zip
+          - arch: armv6
+            goarch: arm
+            goarm: "6"
+            xray_asset: Xray-linux-arm32-v6.zip
+          - arch: "386"
+            goarch: "386"
+            xray_asset: Xray-linux-32.zip
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Build package tree
+        shell: bash
+        env:
+          GOARCH: ${{ matrix.goarch }}
+          GOARM: ${{ matrix.goarm || '' }}
+          ARCH_LABEL: ${{ matrix.arch }}
+          XRAY_ASSET: ${{ matrix.xray_asset }}
+        run: |
+          set -euo pipefail
+
+          package_root="${RUNNER_TEMP}/Nova_x-ui-package/Nova_x-ui"
+          bin_dir="${package_root}/bin"
+          scripts_dir="${package_root}/scripts"
+          artifact_dir="${RUNNER_TEMP}/artifacts"
+          xray_version="v26.3.27"
+
+          rm -rf "${RUNNER_TEMP}/Nova_x-ui-package" "${artifact_dir}"
+          mkdir -p "${bin_dir}" "${scripts_dir}" "${artifact_dir}"
+
+          cp Nova_x-ui.sh Nova_x-ui.rc Nova_x-ui.service.arch Nova_x-ui.service.debian Nova_x-ui.service.rhel "${package_root}/"
+          cp scripts/hy2-forward.sh "${scripts_dir}/"
+
+          build_env=(GOOS=linux GOARCH="${GOARCH}" CGO_ENABLED=0)
+          if [[ -n "${GOARM}" ]]; then
+            build_env+=(GOARM="${GOARM}")
+          fi
+
+          env "${build_env[@]}" go build -trimpath -ldflags "-s -w" -o "${package_root}/Nova_x-ui" .
+
+          xray_zip="${RUNNER_TEMP}/${XRAY_ASSET}"
+          curl -fsSL -o "${xray_zip}" "https://github.com/XTLS/Xray-core/releases/download/${xray_version}/${XRAY_ASSET}"
+          unzip -q "${xray_zip}" -d "${bin_dir}"
+          mv "${bin_dir}/xray" "${bin_dir}/xray-linux-${ARCH_LABEL}"
+
+          chmod +x "${package_root}/Nova_x-ui" "${package_root}/Nova_x-ui.sh" "${scripts_dir}/hy2-forward.sh" "${bin_dir}/xray-linux-${ARCH_LABEL}"
+
+          tar -C "${RUNNER_TEMP}/Nova_x-ui-package" -czf "${artifact_dir}/Nova_x-ui-linux-${{ matrix.arch }}.tar.gz" Nova_x-ui
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nova_x-ui-linux-${{ matrix.arch }}
+          path: ${{ runner.temp }}/artifacts/Nova_x-ui-linux-${{ matrix.arch }}.tar.gz
+          if-no-files-found: error
+
+  release:
+    name: publish release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: ${{ github.event.inputs.tag || github.ref_name }}
+          files: dist/*.tar.gz
+          generate_release_notes: true

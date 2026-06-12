@@ -1,0 +1,18 @@
+#!/sbin/openrc-run
+
+command="/usr/local/Nova_x-ui/Nova_x-ui"
+command_background=true
+pidfile="/run/Nova_x-ui.pid"
+description="Nova_x-ui Service"
+procname="Nova_x-ui"
+depend() {
+    need net
+}
+start_pre(){
+    cd /usr/local/Nova_x-ui
+}
+reload() {
+  ebegin "Reloading ${RC_SVCNAME}"
+  kill -USR1 $(cat $pidfile)
+  eend $?
+}
