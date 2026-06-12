@@ -14,7 +14,7 @@ import {
   DesktopOutlined,
 } from '@ant-design/icons-vue';
 
-import { theme, currentTheme, setThemeMode, pauseAnimationsUntilLeave } from '@/composables/useTheme.js';
+import { theme, currentTheme, cycleThemeMode, pauseAnimationsUntilLeave } from '@/composables/useTheme.js';
 
 const { t } = useI18n();
 
@@ -55,15 +55,12 @@ const activeTab = ref([props.requestUri]);
 const drawerOpen = ref(false);
 const collapsed = ref(JSON.parse(localStorage.getItem(SIDEBAR_COLLAPSED_KEY) || 'false'));
 const drawerWidth = 'min(82vw, 320px)';
-const themeModes = [
-  { key: 'system', label: '跟随系统' },
-  { key: 'light', label: '浅色' },
-  { key: 'dark', label: '深色' },
-];
 
-const themeModeLabel = computed(
-  () => themeModes.find((item) => item.key === theme.mode)?.label || '跟随系统',
-);
+const themeModeLabel = computed(() => {
+  if (theme.mode === 'light') return '浅色';
+  if (theme.mode === 'dark') return '深色';
+  return '跟随系统';
+});
 
 function openLink(key) {
   if (key.startsWith('http')) {
@@ -89,9 +86,9 @@ function closeDrawer() {
   drawerOpen.value = false;
 }
 
-function applyThemeMode(mode, elementId) {
+function cycleTheme(elementId) {
   pauseAnimationsUntilLeave(elementId);
-  setThemeMode(mode);
+  cycleThemeMode();
 }
 </script>
 
@@ -103,47 +100,20 @@ function applyThemeMode(mode, elementId) {
           <span class="brand-text">{{ collapsed ? 'Nova' : 'Nova_x-ui' }}</span>
           <span v-if="!collapsed" class="brand-subtitle">控制中心</span>
         </div>
-        <a-dropdown v-if="!collapsed" trigger="click" placement="bottomRight">
-          <template #overlay>
-            <a-menu :theme="currentTheme" :selected-keys="[theme.mode]"
-              @click="({ key }) => applyThemeMode(String(key), 'theme-cycle')">
-              <a-menu-item key="system">
-                <DesktopOutlined />
-                <span>跟随系统</span>
-              </a-menu-item>
-              <a-menu-item key="light">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="4" />
-                  <path
-                    d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-                </svg>
-                <span>浅色</span>
-              </a-menu-item>
-              <a-menu-item key="dark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg>
-                <span>深色</span>
-              </a-menu-item>
-            </a-menu>
-          </template>
-          <button id="theme-cycle" type="button" class="theme-cycle" :aria-label="themeModeLabel"
-            :title="themeModeLabel">
-            <DesktopOutlined v-if="theme.mode === 'system'" />
-            <svg v-else-if="theme.mode === 'light'" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="4" />
-              <path
-                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-            </svg>
-            <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
-          </button>
-        </a-dropdown>
+        <button v-if="!collapsed" id="theme-cycle" type="button" class="theme-cycle" :aria-label="themeModeLabel"
+          :title="themeModeLabel" @click="cycleTheme('theme-cycle')">
+          <DesktopOutlined v-if="theme.mode === 'system'" />
+          <svg v-else-if="theme.mode === 'light'" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
       </div>
       <a-menu :theme="currentTheme" mode="inline" :selected-keys="activeTab" class="sider-nav"
         @click="({ key }) => openLink(key)">
@@ -171,47 +141,20 @@ function applyThemeMode(mode, elementId) {
           <span class="brand-subtitle">控制中心</span>
         </div>
         <div class="drawer-header-actions">
-          <a-dropdown trigger="click" placement="bottomRight">
-            <template #overlay>
-              <a-menu :theme="currentTheme" :selected-keys="[theme.mode]"
-                @click="({ key }) => applyThemeMode(String(key), 'theme-cycle-drawer')">
-                <a-menu-item key="system">
-                  <DesktopOutlined />
-                  <span>跟随系统</span>
-                </a-menu-item>
-                <a-menu-item key="light">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <circle cx="12" cy="12" r="4" />
-                    <path
-                      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-                  </svg>
-                  <span>浅色</span>
-                </a-menu-item>
-                <a-menu-item key="dark">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                  </svg>
-                  <span>深色</span>
-                </a-menu-item>
-              </a-menu>
-            </template>
-            <button id="theme-cycle-drawer" type="button" class="theme-cycle" :aria-label="themeModeLabel"
-              :title="themeModeLabel">
-              <DesktopOutlined v-if="theme.mode === 'system'" />
-              <svg v-else-if="theme.mode === 'light'" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="4" />
-                <path
-                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-              </svg>
-              <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-              </svg>
-            </button>
-          </a-dropdown>
+          <button id="theme-cycle-drawer" type="button" class="theme-cycle" :aria-label="themeModeLabel"
+            :title="themeModeLabel" @click="cycleTheme('theme-cycle-drawer')">
+            <DesktopOutlined v-if="theme.mode === 'system'" />
+            <svg v-else-if="theme.mode === 'light'" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+            <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
           <button class="drawer-close" type="button" :aria-label="t('close')" @click="closeDrawer">
             <CloseOutlined />
           </button>
