@@ -15,7 +15,8 @@ function readBool(key, fallback) {
   return raw === 'true';
 }
 
-const isDark = readBool(STORAGE_DARK, true);
+// Light is now the default visual language; dark remains a persisted option.
+const isDark = readBool(STORAGE_DARK, false);
 const isUltra = readBool(STORAGE_ULTRA, false);
 
 export const theme = reactive({

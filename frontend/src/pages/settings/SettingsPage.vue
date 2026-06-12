@@ -178,7 +178,7 @@ const alertVisible = ref(true);
 
               <a-row :gutter="[isMobile ? 8 : 16, isMobile ? 0 : 12]">
                 <a-col :span="24">
-                  <a-card hoverable>
+                  <a-card hoverable class="settings-hero">
                     <a-row class="header-row">
                       <a-col :xs="24" :sm="10" class="header-actions">
                         <a-space direction="horizontal">
@@ -199,7 +199,7 @@ const alertVisible = ref(true);
                 </a-col>
 
                 <a-col :span="24">
-                  <a-tabs default-active-key="1">
+                  <a-tabs default-active-key="1" class="settings-tabs">
                     <a-tab-pane key="1" class="tab-pane">
                       <template #tab>
                         <SettingOutlined />
@@ -248,41 +248,41 @@ const alertVisible = ref(true);
 
 <style scoped>
 .settings-page {
-  --bg-page: #eef2f8;
-  --bg-card: rgba(255, 255, 255, 0.82);
-  --card-border: rgba(15, 23, 42, 0.08);
-  --card-shadow: 0 20px 52px rgba(15, 23, 42, 0.08);
-  --card-hover-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+  --bg-page: #eef3fb;
+  --bg-card: rgba(255, 255, 255, 0.78);
+  --card-border: rgba(148, 163, 184, 0.2);
+  --card-shadow: 0 22px 54px rgba(15, 23, 42, 0.1);
+  --card-hover-shadow: 0 26px 64px rgba(15, 23, 42, 0.13);
 
   min-height: 100vh;
   background:
-    radial-gradient(circle at top right, rgba(22, 119, 255, 0.16), transparent 28%),
-    radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.1), transparent 26%),
-    linear-gradient(180deg, #f8fbff 0%, var(--bg-page) 56%, #e8edf6 100%);
+    radial-gradient(circle at top right, rgba(22, 119, 255, 0.12), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.08), transparent 24%),
+    linear-gradient(180deg, #f9fbff 0%, var(--bg-page) 56%, #e9eef7 100%);
 }
 
 .settings-page.is-dark {
-  --bg-page: #0f1218;
-  --bg-card: rgba(22, 26, 35, 0.82);
+  --bg-page: #11161f;
+  --bg-card: rgba(22, 28, 39, 0.86);
   --card-border: rgba(255, 255, 255, 0.08);
-  --card-shadow: 0 22px 56px rgba(0, 0, 0, 0.42);
-  --card-hover-shadow: 0 26px 64px rgba(0, 0, 0, 0.52);
+  --card-shadow: 0 24px 58px rgba(0, 0, 0, 0.34);
+  --card-hover-shadow: 0 28px 66px rgba(0, 0, 0, 0.42);
   background:
-    radial-gradient(circle at top right, rgba(64, 150, 255, 0.18), transparent 28%),
-    radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.1), transparent 24%),
-    linear-gradient(180deg, #161b23 0%, var(--bg-page) 48%, #0c0f14 100%);
+    radial-gradient(circle at top right, rgba(64, 150, 255, 0.16), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.08), transparent 24%),
+    linear-gradient(180deg, #151b25 0%, var(--bg-page) 48%, #0b0f15 100%);
 }
 
 .settings-page.is-dark.is-ultra {
-  --bg-page: #050505;
-  --bg-card: rgba(10, 10, 12, 0.9);
+  --bg-page: #040405;
+  --bg-card: rgba(10, 10, 12, 0.92);
   --card-border: rgba(255, 255, 255, 0.06);
-  --card-shadow: 0 24px 62px rgba(0, 0, 0, 0.58);
-  --card-hover-shadow: 0 28px 70px rgba(0, 0, 0, 0.66);
+  --card-shadow: 0 26px 64px rgba(0, 0, 0, 0.5);
+  --card-hover-shadow: 0 30px 74px rgba(0, 0, 0, 0.58);
   background:
-    radial-gradient(circle at top right, rgba(102, 170, 255, 0.1), transparent 28%),
-    radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.08), transparent 24%),
-    linear-gradient(180deg, #0a0a0a 0%, var(--bg-page) 48%, #040404 100%);
+    radial-gradient(circle at top right, rgba(102, 170, 255, 0.08), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.06), transparent 24%),
+    linear-gradient(180deg, #0b0c10 0%, var(--bg-page) 48%, #040404 100%);
 }
 
 .settings-page :deep(.ant-layout),
@@ -295,16 +295,16 @@ const alertVisible = ref(true);
 }
 
 .content-area {
-  padding: 24px 24px 28px;
+  padding: 22px 24px 30px;
 }
 
 .settings-page :deep(.ant-card) {
   background: var(--bg-card);
   border: 1px solid var(--card-border);
-  border-radius: 22px;
+  border-radius: 28px;
   box-shadow: var(--card-shadow);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
   overflow: hidden;
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
@@ -312,14 +312,14 @@ const alertVisible = ref(true);
 .settings-page :deep(.ant-card:hover) {
   transform: translateY(-2px);
   box-shadow: var(--card-hover-shadow);
-  border-color: rgba(22, 119, 255, 0.18);
+  border-color: rgba(22, 119, 255, 0.16);
 }
 
 .settings-page :deep(.ant-card-head) {
   min-height: 58px;
   padding-inline: 20px;
   border-bottom-color: var(--card-border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent);
 }
 
 .settings-page :deep(.ant-card-head-title) {
@@ -332,15 +332,56 @@ const alertVisible = ref(true);
   padding: 20px;
 }
 
+.settings-page :deep(.settings-hero .ant-card-body) {
+  padding: 18px;
+}
+
+.settings-page :deep(.settings-hero .ant-space) {
+  flex-wrap: wrap;
+}
+
+.settings-page :deep(.settings-hero .ant-btn) {
+  min-height: 44px;
+  border-radius: 999px;
+  padding-inline: 18px;
+}
+
+.settings-page :deep(.settings-hero .ant-btn-primary) {
+  background: linear-gradient(135deg, #4d88ff 0%, #2f6df6 100%);
+  border: none;
+  box-shadow: 0 16px 28px rgba(37, 89, 214, 0.18);
+}
+
+.settings-page :deep(.settings-hero .ant-btn-dangerous) {
+  color: #a9772b;
+  border-color: rgba(169, 119, 43, 0.36);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.settings-page :deep(.settings-hero .ant-btn-dangerous:hover),
+.settings-page :deep(.settings-hero .ant-btn-dangerous:focus-visible) {
+  color: #8f611d;
+  border-color: rgba(169, 119, 43, 0.48);
+  background: rgba(255, 250, 240, 0.92);
+}
+
+.settings-page :deep(.settings-hero .ant-alert) {
+  margin: 0;
+}
+
+.settings-page :deep(.settings-tabs) {
+  display: block;
+}
+
 .settings-page :deep(.ant-tabs-nav) {
   margin-bottom: 18px;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid var(--card-border);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.28);
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.07);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
 }
 
 .settings-page :deep(.ant-tabs-nav-wrap) {
@@ -349,12 +390,12 @@ const alertVisible = ref(true);
 
 .settings-page :deep(.ant-tabs-tab) {
   border-radius: 12px;
-  padding: 10px 16px;
+  padding: 11px 16px;
   transition: background-color 0.18s ease, color 0.18s ease;
 }
 
 .settings-page :deep(.ant-tabs-tab-active) {
-  background: rgba(22, 119, 255, 0.1);
+  background: rgba(22, 119, 255, 0.09);
 }
 
 .settings-page :deep(.ant-tabs-ink-bar) {
@@ -363,12 +404,132 @@ const alertVisible = ref(true);
   background: #1677ff;
 }
 
+.settings-page :deep(.ant-tabs-tab-btn) {
+  font-weight: 600;
+}
+
 .loading-spacer {
   min-height: calc(100vh - 120px);
 }
 
 .conf-alert {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.settings-page :deep(.conf-alert.ant-alert) {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 22px;
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+}
+
+.settings-page :deep(.conf-alert .ant-alert-message) {
+  font-weight: 700;
+}
+
+.settings-page :deep(.conf-alert .ant-alert-description) {
+  color: rgba(15, 23, 42, 0.82);
+}
+
+.settings-page :deep(.ant-collapse) {
+  background: transparent;
+  border: none;
+}
+
+.settings-page :deep(.ant-collapse > .ant-collapse-item) {
+  margin-bottom: 14px;
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+}
+
+.settings-page :deep(.ant-collapse > .ant-collapse-item:last-child) {
+  margin-bottom: 0;
+}
+
+.settings-page :deep(.ant-collapse-header) {
+  min-height: 58px;
+  align-items: center !important;
+  padding: 18px 20px !important;
+  font-weight: 700;
+  color: rgba(15, 23, 42, 0.9);
+}
+
+.settings-page :deep(.ant-collapse-content) {
+  border-top: 1px solid var(--card-border);
+  background: transparent;
+}
+
+.settings-page :deep(.ant-collapse-content-box) {
+  padding: 0;
+}
+
+.settings-page :deep(.ant-list-item) {
+  margin: 10px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  overflow: hidden;
+}
+
+.settings-page :deep(.ant-list-item-meta-title) {
+  font-weight: 700;
+  color: rgba(15, 23, 42, 0.9);
+}
+
+.settings-page :deep(.ant-list-item-meta-description) {
+  color: rgba(71, 85, 105, 0.72);
+}
+
+.settings-page :deep(.ant-input),
+.settings-page :deep(.ant-input-affix-wrapper),
+.settings-page :deep(.ant-input-number),
+.settings-page :deep(.ant-select-selector) {
+  border-radius: 18px !important;
+  border-color: rgba(148, 163, 184, 0.22) !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.settings-page :deep(.ant-input-affix-wrapper),
+.settings-page :deep(.ant-select-selector),
+.settings-page :deep(.ant-input-number) {
+  min-height: 52px;
+}
+
+.settings-page :deep(.ant-input),
+.settings-page :deep(.ant-select-selector),
+.settings-page :deep(.ant-input-number-input) {
+  color: rgba(15, 23, 42, 0.9);
+}
+
+.settings-page :deep(.ant-select-selection-item),
+.settings-page :deep(.ant-input-number-input) {
+  line-height: 50px;
+}
+
+.settings-page :deep(.ant-select-arrow),
+.settings-page :deep(.ant-input-suffix) {
+  color: rgba(100, 116, 139, 0.8);
+}
+
+.settings-page :deep(.ant-switch) {
+  min-width: 46px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.settings-page :deep(.hy2-backend-tag) {
+  border-radius: 999px;
+  padding-inline: 12px;
+  font-weight: 600;
+  border: none;
 }
 
 .header-row {
@@ -387,6 +548,24 @@ const alertVisible = ref(true);
 }
 
 .tab-pane {
-  padding-top: 20px;
+  padding-top: 18px;
+}
+
+.settings-page :deep(.ant-card-actions) {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+@media (max-width: 768px) {
+  .content-area {
+    padding: 14px 12px 18px;
+  }
+
+  .settings-page :deep(.ant-tabs-nav) {
+    padding: 8px;
+  }
+
+  .settings-page :deep(.ant-list-item) {
+    margin-inline: 10px;
+  }
 }
 </style>

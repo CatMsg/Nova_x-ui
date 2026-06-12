@@ -97,7 +97,10 @@ function cycleTheme() {
   <div class="ant-sidebar">
     <a-layout-sider :theme="currentTheme" collapsible :collapsed="collapsed" breakpoint="md" @collapse="onCollapse">
       <div class="sider-brand" :class="{ 'sider-brand-collapsed': collapsed }">
-        <span class="brand-text">{{ collapsed ? 'Nova' : 'Nova_x-ui' }}</span>
+        <div class="brand-stack">
+          <span class="brand-text">{{ collapsed ? 'Nova' : 'Nova_x-ui' }}</span>
+          <span v-if="!collapsed" class="brand-subtitle">控制中心</span>
+        </div>
         <button v-if="!collapsed" id="theme-cycle" type="button" class="theme-cycle" :aria-label="t('menu.theme')"
           :title="t('menu.theme')" @click="cycleTheme">
           <svg v-if="!theme.isDark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -138,7 +141,10 @@ function cycleTheme() {
       :body-style="{ padding: 0, display: 'flex', flexDirection: 'column', height: '100%' }"
       :header-style="{ display: 'none' }" @close="closeDrawer">
       <div class="drawer-header">
-        <span class="drawer-brand">Nova_x-ui</span>
+        <div class="brand-stack">
+          <span class="drawer-brand">Nova_x-ui</span>
+          <span class="brand-subtitle">控制中心</span>
+        </div>
         <div class="drawer-header-actions">
           <button id="theme-cycle-drawer" type="button" class="theme-cycle" :aria-label="t('menu.theme')"
             :title="t('menu.theme')" @click="cycleTheme">
@@ -188,32 +194,32 @@ function cycleTheme() {
 
 <style scoped>
 .ant-sidebar {
-  --sidebar-surface: rgba(255, 255, 255, 0.9);
-  --sidebar-surface-soft: rgba(248, 250, 252, 0.92);
-  --sidebar-border: rgba(15, 23, 42, 0.08);
-  --sidebar-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
-  --sidebar-text: rgba(15, 23, 42, 0.88);
-  --sidebar-text-muted: rgba(15, 23, 42, 0.56);
+  --sidebar-surface: rgba(255, 255, 255, 0.82);
+  --sidebar-surface-soft: rgba(247, 249, 253, 0.94);
+  --sidebar-border: rgba(148, 163, 184, 0.22);
+  --sidebar-shadow: 0 22px 54px rgba(15, 23, 42, 0.1);
+  --sidebar-text: rgba(15, 23, 42, 0.9);
+  --sidebar-text-muted: rgba(71, 85, 105, 0.68);
   --sidebar-accent: #1677ff;
-  --sidebar-accent-soft: rgba(22, 119, 255, 0.1);
+  --sidebar-accent-soft: rgba(22, 119, 255, 0.08);
 }
 
 body.dark .ant-sidebar {
-  --sidebar-surface: rgba(20, 24, 33, 0.94);
-  --sidebar-surface-soft: rgba(32, 37, 48, 0.96);
+  --sidebar-surface: rgba(22, 28, 39, 0.92);
+  --sidebar-surface-soft: rgba(31, 38, 52, 0.96);
   --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-shadow: 0 22px 54px rgba(0, 0, 0, 0.42);
-  --sidebar-text: rgba(255, 255, 255, 0.92);
+  --sidebar-shadow: 0 24px 56px rgba(0, 0, 0, 0.38);
+  --sidebar-text: rgba(255, 255, 255, 0.93);
   --sidebar-text-muted: rgba(255, 255, 255, 0.62);
   --sidebar-accent: #4096ff;
-  --sidebar-accent-soft: rgba(64, 150, 255, 0.18);
+  --sidebar-accent-soft: rgba(64, 150, 255, 0.14);
 }
 
 html[data-theme='ultra-dark'] .ant-sidebar {
   --sidebar-surface: rgba(8, 8, 10, 0.98);
-  --sidebar-surface-soft: rgba(18, 18, 20, 0.98);
+  --sidebar-surface-soft: rgba(16, 16, 18, 0.98);
   --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-shadow: 0 22px 54px rgba(0, 0, 0, 0.58);
+  --sidebar-shadow: 0 24px 56px rgba(0, 0, 0, 0.56);
   --sidebar-text: rgba(255, 255, 255, 0.96);
   --sidebar-text-muted: rgba(255, 255, 255, 0.68);
   --sidebar-accent: #66aaff;
@@ -222,29 +228,28 @@ html[data-theme='ultra-dark'] .ant-sidebar {
 
 .ant-sidebar>.ant-layout-sider {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 16px;
+  height: calc(100vh - 32px);
   align-self: flex-start;
   margin: 16px 0 16px 16px;
   background:
-    radial-gradient(circle at top, rgba(22, 119, 255, 0.18), transparent 42%),
-    radial-gradient(circle at bottom, rgba(90, 224, 214, 0.1), transparent 36%),
+    radial-gradient(circle at top, rgba(22, 119, 255, 0.12), transparent 44%),
+    radial-gradient(circle at bottom, rgba(90, 224, 214, 0.08), transparent 34%),
     linear-gradient(180deg, var(--sidebar-surface) 0%, var(--sidebar-surface-soft) 100%);
   border: 1px solid var(--sidebar-border);
-  border-radius: 30px;
+  border-radius: 32px;
   box-shadow: var(--sidebar-shadow);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(26px) saturate(175%);
+  -webkit-backdrop-filter: blur(26px) saturate(175%);
   overflow: hidden;
 }
 
-.sider-brand,
-.drawer-brand {
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.08em;
-  color: var(--sidebar-text);
-  text-transform: uppercase;
+.brand-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  gap: 2px;
 }
 
 .sider-brand {
@@ -255,33 +260,39 @@ html[data-theme='ultra-dark'] .ant-sidebar {
   padding: 20px 18px 16px;
   border-bottom: 1px solid var(--sidebar-border);
   background:
-    linear-gradient(135deg, rgba(22, 119, 255, 0.12), rgba(255, 255, 255, 0.02) 55%),
-    rgba(255, 255, 255, 0.03);
+    linear-gradient(135deg, rgba(22, 119, 255, 0.1), rgba(255, 255, 255, 0.12) 58%),
+    rgba(255, 255, 255, 0.18);
   user-select: none;
 }
 
-/* Collapsed sider only has room for the 'Nova' brand — center it and
- * hide the theme cycle button (which is `v-if`-ed out in template). */
 .sider-brand-collapsed {
   justify-content: center;
-  font-size: 15px;
   padding: 18px 4px 16px;
-  letter-spacing: 0.04em;
+}
+
+.sider-brand-collapsed .brand-stack {
+  align-items: center;
 }
 
 .brand-text {
-  flex: 1 1 auto;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--sidebar-text);
 }
 
-.sider-brand-collapsed .brand-text {
-  flex: 0 0 auto;
+.brand-subtitle {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sidebar-text-muted);
 }
 
 .theme-cycle {
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  width: 36px;
-  height: 36px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -290,15 +301,15 @@ html[data-theme='ultra-dark'] .ant-sidebar {
   color: var(--sidebar-text);
   padding: 0;
   flex-shrink: 0;
-  transition: background-color 0.2s, transform 0.15s, color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, transform 0.15s, color 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
 
 .theme-cycle:hover,
 .theme-cycle:focus-visible {
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.92);
   color: var(--sidebar-accent);
-  transform: translateY(-1px) scale(1.04);
-  box-shadow: 0 14px 26px rgba(22, 119, 255, 0.18);
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 14px 28px rgba(22, 119, 255, 0.14);
   outline: none;
 }
 
@@ -319,9 +330,9 @@ html[data-theme='ultra-dark'] .ant-sidebar {
   left: 14px;
   z-index: 1100;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.16));
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(247, 249, 253, 0.78));
   color: var(--sidebar-text);
-  border: 1px solid rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(148, 163, 184, 0.22);
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -330,7 +341,7 @@ html[data-theme='ultra-dark'] .ant-sidebar {
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  box-shadow: 0 16px 32px rgba(46, 65, 105, 0.18);
+  box-shadow: 0 16px 32px rgba(46, 65, 105, 0.14);
   backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
 }
@@ -342,13 +353,20 @@ html[data-theme='ultra-dark'] .ant-sidebar {
   padding: 16px 18px;
   border-bottom: 1px solid var(--sidebar-border);
   background:
-    linear-gradient(135deg, rgba(22, 119, 255, 0.12), rgba(255, 255, 255, 0.02) 55%),
-    rgba(255, 255, 255, 0.03);
+    linear-gradient(135deg, rgba(22, 119, 255, 0.08), rgba(255, 255, 255, 0.16) 58%),
+    rgba(255, 255, 255, 0.18);
+}
+
+.drawer-brand {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--sidebar-text);
 }
 
 .drawer-close {
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(148, 163, 184, 0.22);
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -363,17 +381,17 @@ html[data-theme='ultra-dark'] .ant-sidebar {
 
 .drawer-close:hover,
 .drawer-close:focus-visible {
-  background: rgba(255, 255, 255, 0.28);
-  box-shadow: 0 14px 26px rgba(22, 119, 255, 0.16);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 14px 26px rgba(22, 119, 255, 0.12);
   transform: translateY(-1px);
 }
 
 .drawer-menu :deep(.ant-menu-item) {
-  height: 46px;
-  line-height: 46px;
-  margin: 6px 12px;
-  border-radius: 16px;
-  padding-inline: 16px !important;
+  height: 44px;
+  line-height: 44px;
+  margin: 6px 10px;
+  border-radius: 14px;
+  padding-inline: 14px !important;
   transition: transform 0.18s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -435,11 +453,11 @@ html[data-theme='ultra-dark'] .ant-sidebar {
 .sider-nav .ant-menu-item-selected,
 .sider-utility .ant-menu-item-selected,
 .drawer-menu .ant-menu-item-selected {
-  background: linear-gradient(135deg, rgba(22, 119, 255, 0.26), rgba(22, 119, 255, 0.14)) !important;
+  background: linear-gradient(135deg, rgba(22, 119, 255, 0.16), rgba(22, 119, 255, 0.08)) !important;
   color: var(--sidebar-accent) !important;
   box-shadow:
-    inset 0 0 0 1px rgba(22, 119, 255, 0.14),
-    0 10px 22px rgba(22, 119, 255, 0.12);
+    inset 0 0 0 1px rgba(22, 119, 255, 0.12),
+    0 10px 22px rgba(22, 119, 255, 0.1);
 }
 
 .sider-nav .ant-menu-item-active:not(.ant-menu-item-selected),
@@ -448,7 +466,7 @@ html[data-theme='ultra-dark'] .ant-sidebar {
 .sider-nav .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover,
 .sider-utility .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover,
 .drawer-menu .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover {
-  background-color: rgba(255, 255, 255, 0.22) !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
   color: var(--sidebar-accent) !important;
   transform: translateX(2px);
 }
@@ -456,7 +474,7 @@ html[data-theme='ultra-dark'] .ant-sidebar {
 body.dark .ant-drawer .ant-drawer-content,
 body.dark .ant-drawer .ant-drawer-body {
   background:
-    radial-gradient(circle at top, rgba(22, 119, 255, 0.12), transparent 44%),
+    radial-gradient(circle at top, rgba(22, 119, 255, 0.1), transparent 44%),
     linear-gradient(180deg, rgba(20, 24, 33, 0.98), rgba(15, 18, 26, 0.98)) !important;
 }
 

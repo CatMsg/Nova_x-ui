@@ -373,11 +373,11 @@ async function openConfig() {
   min-height: 100vh;
   overflow: hidden;
   background:
-    radial-gradient(circle at 18% 15%, rgba(117, 151, 255, 0.34), transparent 0 22%),
-    radial-gradient(circle at 82% 14%, rgba(92, 224, 214, 0.2), transparent 0 18%),
-    radial-gradient(circle at 86% 84%, rgba(255, 145, 190, 0.18), transparent 0 22%),
-    radial-gradient(circle at 14% 86%, rgba(255, 214, 102, 0.12), transparent 0 20%),
-    linear-gradient(145deg, #f7fbff 0%, #eef4ff 44%, #f7f8fe 100%);
+    radial-gradient(circle at 18% 15%, rgba(117, 151, 255, 0.22), transparent 0 20%),
+    radial-gradient(circle at 82% 14%, rgba(92, 224, 214, 0.14), transparent 0 18%),
+    radial-gradient(circle at 86% 84%, rgba(255, 145, 190, 0.1), transparent 0 20%),
+    radial-gradient(circle at 14% 86%, rgba(255, 214, 102, 0.08), transparent 0 18%),
+    linear-gradient(145deg, #f8fbff 0%, #eef4fb 44%, #f8f9fd 100%);
 }
 
 .index-page::before,
@@ -396,7 +396,7 @@ async function openConfig() {
   height: 42vw;
   top: -10vw;
   right: -8vw;
-  background: radial-gradient(circle, rgba(115, 135, 255, 0.36) 0%, rgba(115, 135, 255, 0.12) 36%, transparent 72%);
+  background: radial-gradient(circle, rgba(115, 135, 255, 0.22) 0%, rgba(115, 135, 255, 0.08) 36%, transparent 72%);
 }
 
 .index-page::after {
@@ -404,7 +404,7 @@ async function openConfig() {
   height: 52vw;
   left: -12vw;
   bottom: -18vw;
-  background: radial-gradient(circle, rgba(70, 225, 220, 0.24) 0%, rgba(70, 225, 220, 0.08) 34%, transparent 68%);
+  background: radial-gradient(circle, rgba(70, 225, 220, 0.14) 0%, rgba(70, 225, 220, 0.05) 34%, transparent 68%);
 }
 
 .index-page.is-dark {
@@ -523,13 +523,13 @@ async function openConfig() {
 
 .index-page :deep(.glass-card) {
   position: relative;
-  background: rgba(255, 255, 255, 0.42);
-  border: 1px solid rgba(255, 255, 255, 0.46);
-  border-bottom-color: rgba(255, 255, 255, 0.3);
-  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-bottom-color: rgba(255, 255, 255, 0.42);
+  border-radius: 30px;
   box-shadow:
-    0 18px 48px rgba(46, 65, 105, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.68);
+    0 20px 52px rgba(46, 65, 105, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.76);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   overflow: hidden;
@@ -541,18 +541,18 @@ async function openConfig() {
 }
 
 .index-page :deep(.glass-card:hover) {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow:
-    0 26px 60px rgba(46, 65, 105, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.74);
-  border-color: rgba(255, 255, 255, 0.58);
+    0 26px 60px rgba(46, 65, 105, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.72);
 }
 
 .index-page :deep(.glass-card .ant-card-head) {
   min-height: 58px;
   padding-inline: 22px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.26);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.12));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.18));
 }
 
 .index-page :deep(.glass-card .ant-card-head-title) {
@@ -572,9 +572,9 @@ async function openConfig() {
 
 .index-page :deep(.glass-card .ant-card-actions) {
   margin: 0 14px 14px;
-  background: rgba(255, 255, 255, 0.34);
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 20px;
   overflow: hidden;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -587,6 +587,21 @@ async function openConfig() {
 
 .index-page :deep(.glass-card .ant-card-actions > li > span) {
   min-height: 46px;
+  margin: 0 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.34));
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 22px rgba(46, 65, 105, 0.06);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.index-page :deep(.glass-card .ant-card-actions > li > span:hover) {
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.44));
+  border-color: rgba(255, 255, 255, 0.68);
+  box-shadow: 0 14px 28px rgba(46, 65, 105, 0.1);
 }
 
 .index-page :deep(.hero-card .ant-card-body) {
@@ -629,9 +644,9 @@ async function openConfig() {
   gap: 8px;
   padding: 10px 12px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.22));
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  box-shadow: 0 10px 22px rgba(46, 65, 105, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.34));
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 22px rgba(46, 65, 105, 0.06);
 }
 
 .action :deep(.anticon) {

@@ -134,6 +134,7 @@ function cycleTheme() {
           <div v-else class="login-card">
             <div class="brand">
               <span class="brand-name">Nova_x-ui</span>
+              <span class="brand-note">面板登录</span>
               <span class="brand-accent" aria-hidden="true"></span>
             </div>
             <h2 class="welcome">
@@ -171,7 +172,7 @@ function cycleTheme() {
               </a-form-item>
 
               <a-form-item class="submit-row">
-                <a-button type="primary" html-type="submit" :loading="submitting" size="large" block>
+                <a-button type="primary" shape="round" html-type="submit" :loading="submitting" size="large" block>
                   {{ submitting ? '' : t('login') }}
                 </a-button>
               </a-form-item>
@@ -186,16 +187,17 @@ function cycleTheme() {
 
 <style scoped>
 .login-app {
-  --bg-page: #f5f7fa;
-  --bg-card: #ffffff;
-  --color-text: rgba(0, 0, 0, 0.88);
-  --color-text-subtle: rgba(0, 0, 0, 0.55);
+  --bg-page: #eef3fb;
+  --bg-card: rgba(255, 255, 255, 0.76);
+  --bg-card-strong: rgba(255, 255, 255, 0.9);
+  --color-text: rgba(15, 23, 42, 0.92);
+  --color-text-subtle: rgba(71, 85, 105, 0.72);
   --color-accent: #1677ff;
-  --color-border: rgba(0, 0, 0, 0.08);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
-  --blob-1: rgba(99, 102, 241, 0.45);
-  --blob-2: rgba(236, 72, 153, 0.38);
-  --blob-3: rgba(20, 184, 166, 0.32);
+  --color-border: rgba(148, 163, 184, 0.2);
+  --shadow-card: 0 24px 56px rgba(15, 23, 42, 0.12);
+  --blob-1: rgba(107, 155, 255, 0.34);
+  --blob-2: rgba(155, 177, 255, 0.22);
+  --blob-3: rgba(94, 234, 212, 0.18);
 
   position: relative;
   min-height: 100vh;
@@ -204,25 +206,27 @@ function cycleTheme() {
 }
 
 .login-app.is-dark {
-  --bg-page: #1e1e1e;
-  --bg-card: #252526;
-  --color-text: rgba(255, 255, 255, 0.92);
-  --color-text-subtle: rgba(255, 255, 255, 0.55);
+  --bg-page: #11161f;
+  --bg-card: rgba(24, 30, 41, 0.88);
+  --bg-card-strong: rgba(28, 35, 48, 0.94);
+  --color-text: rgba(255, 255, 255, 0.94);
+  --color-text-subtle: rgba(255, 255, 255, 0.64);
   --color-accent: #4096ff;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 8px 32px rgba(0, 0, 0, 0.4);
-  --blob-1: rgba(64, 150, 255, 0.40);
-  --blob-2: rgba(168, 85, 247, 0.34);
-  --blob-3: rgba(34, 211, 238, 0.22);
+  --color-border: rgba(255, 255, 255, 0.09);
+  --shadow-card: 0 24px 58px rgba(0, 0, 0, 0.34);
+  --blob-1: rgba(64, 150, 255, 0.28);
+  --blob-2: rgba(168, 85, 247, 0.18);
+  --blob-3: rgba(34, 211, 238, 0.12);
 }
 
 .login-app.is-dark.is-ultra {
-  --bg-page: #000;
-  --bg-card: #141414;
+  --bg-page: #050608;
+  --bg-card: rgba(12, 13, 16, 0.94);
+  --bg-card-strong: rgba(16, 18, 22, 0.98);
   --color-border: rgba(255, 255, 255, 0.06);
-  --blob-1: rgba(64, 150, 255, 0.22);
-  --blob-2: rgba(168, 85, 247, 0.18);
-  --blob-3: rgba(34, 211, 238, 0.12);
+  --blob-1: rgba(64, 150, 255, 0.18);
+  --blob-2: rgba(168, 85, 247, 0.12);
+  --blob-3: rgba(34, 211, 238, 0.08);
 }
 
 /* Three blurred blobs slowly drift across the page; ::before and
@@ -232,27 +236,27 @@ function cycleTheme() {
 .login-app::after {
   content: '';
   position: absolute;
-  width: 70vw;
-  height: 70vw;
-  max-width: 900px;
-  max-height: 900px;
+  width: 62vw;
+  height: 62vw;
+  max-width: 860px;
+  max-height: 860px;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(100px);
   pointer-events: none;
   z-index: 0;
   will-change: transform;
 }
 
 .login-app::before {
-  top: -25vw;
-  left: -20vw;
+  top: -24vw;
+  left: -18vw;
   background: radial-gradient(circle, var(--blob-1) 0%, transparent 65%);
   animation: blob-drift-a 24s ease-in-out infinite alternate;
 }
 
 .login-app::after {
-  bottom: -25vw;
-  right: -20vw;
+  bottom: -24vw;
+  right: -18vw;
   background: radial-gradient(circle, var(--blob-2) 0%, transparent 65%);
   animation: blob-drift-b 30s ease-in-out infinite alternate;
 }
@@ -262,13 +266,13 @@ function cycleTheme() {
   position: absolute;
   top: 30%;
   left: 50%;
-  width: 50vw;
-  height: 50vw;
-  max-width: 700px;
-  max-height: 700px;
+  width: 46vw;
+  height: 46vw;
+  max-width: 680px;
+  max-height: 680px;
   border-radius: 50%;
   background: radial-gradient(circle, var(--blob-3) 0%, transparent 65%);
-  filter: blur(90px);
+  filter: blur(100px);
   pointer-events: none;
   z-index: 0;
   will-change: transform;
@@ -366,14 +370,18 @@ function cycleTheme() {
   justify-content: center;
   cursor: pointer;
   padding: 0;
-  transition: background-color 0.2s, transform 0.15s, color 0.2s;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  transition: background-color 0.2s, transform 0.15s, color 0.2s, box-shadow 0.2s;
 }
 
 .theme-cycle:hover,
 .theme-cycle:focus-visible {
-  background-color: rgba(64, 150, 255, 0.1);
+  background-color: var(--bg-card-strong);
   color: #4096ff;
-  transform: scale(1.05);
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 14px 28px rgba(22, 119, 255, 0.14);
   outline: none;
 }
 
@@ -396,17 +404,35 @@ function cycleTheme() {
 
 .login-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 430px;
   background: var(--bg-card);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: 40px 32px 28px;
+  border-radius: 28px;
+  padding: 42px 34px 30px;
   box-shadow: var(--shadow-card);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%);
+  pointer-events: none;
+}
+
+.login-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 480px) {
   .login-card {
-    padding: 32px 20px 24px;
+    max-width: none;
+    padding: 30px 20px 24px;
   }
 }
 
@@ -414,33 +440,41 @@ function cycleTheme() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 
 .brand-name {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.04em;
   color: var(--color-text);
+}
+
+.brand-note {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
 }
 
 .brand-accent {
   display: block;
-  width: 40px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--color-accent);
+  width: 52px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(22, 119, 255, 0.1), var(--color-accent), rgba(22, 119, 255, 0.1));
 }
 
 .welcome {
   text-align: center;
   color: var(--color-text);
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 1.2;
-  min-height: 42px;
-  margin: 12px 0 28px;
+  min-height: 40px;
+  margin: 14px 0 28px;
   letter-spacing: 0.3px;
 }
 
@@ -467,6 +501,46 @@ function cycleTheme() {
 .login-form :deep(.ant-form-item-label > label) {
   color: var(--color-text);
   font-weight: 500;
+}
+
+.login-form :deep(.ant-input-affix-wrapper),
+.login-form :deep(.ant-input),
+.login-form :deep(.ant-select-selector) {
+  background: rgba(255, 255, 255, 0.86) !important;
+  border-color: rgba(148, 163, 184, 0.22) !important;
+  border-radius: 18px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.login-form :deep(.ant-input-affix-wrapper),
+.login-form :deep(.ant-select-selector) {
+  min-height: 54px;
+  padding-inline: 14px;
+}
+
+.login-form :deep(.ant-input),
+.login-form :deep(.ant-input-affix-wrapper input) {
+  color: var(--color-text);
+}
+
+.login-form :deep(.ant-input-prefix) {
+  color: rgba(100, 116, 139, 0.78);
+}
+
+.submit-row :deep(.ant-btn-primary) {
+  min-height: 52px;
+  border: none;
+  background: linear-gradient(135deg, #4c88ff 0%, #2f6df6 55%, #2559d6 100%);
+  box-shadow: 0 18px 28px rgba(37, 89, 214, 0.22);
+}
+
+.submit-row :deep(.ant-btn-primary:hover),
+.submit-row :deep(.ant-btn-primary:focus-visible) {
+  background: linear-gradient(135deg, #5f97ff 0%, #3877ff 55%, #2b63ea 100%);
+}
+
+.submit-row :deep(.ant-btn-round) {
+  border-radius: 999px;
 }
 
 .submit-row {
